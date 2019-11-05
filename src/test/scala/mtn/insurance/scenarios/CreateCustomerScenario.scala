@@ -1,7 +1,9 @@
 package mtn.insurance.scenarios
 
 import io.gatling.core.Predef.scenario
-import mtn.insurance.requests.CreateCustomerReques
+import mtn.insurance.requests.{CreateCustomerReques, GetTokenRequest}
+
+import scala.mtn.insurance.requests.OmniRequest
 
 /**
   * Created by modup on 8/20/2019.
@@ -9,6 +11,7 @@ import mtn.insurance.requests.CreateCustomerReques
 object CreateCustomerScenario {
 
       val createCustomer = scenario("createCustScenario")
-        .exec(CreateCustomerReques.createCustomer)
+//          .exec(GetTokenRequest.get_token)
+        .exec(OmniRequest.wallet_req)
 
 }
