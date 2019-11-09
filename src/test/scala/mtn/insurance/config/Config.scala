@@ -11,7 +11,7 @@ object Config {
     val omni_url = "https://demo.omnibranches.com/api"
 
     val omni_url_trxn = ""
-    val users = Integer.getInteger("users", 1).toInt
+    val users = Integer.getInteger("users", 5).toInt
 //    val rampUp = Integer.getInteger("rampup", 1).toInt
 //    val throughput = Integer.getInteger("throughput", 100).toInt
 }

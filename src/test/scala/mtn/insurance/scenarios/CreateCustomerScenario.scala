@@ -11,7 +11,8 @@ import scala.mtn.insurance.requests.OmniRequest
 object CreateCustomerScenario {
 
       val createCustomer = scenario("createCustScenario")
-//          .exec(GetTokenRequest.get_token)
+          .exec(GetTokenRequest.get_token)
         .exec(OmniRequest.wallet_req)
+        .pause("5")
 
 }

@@ -22,7 +22,6 @@ object CreateCustomerReques {
 
   val lastNameFeeder = Iterator.continually(Map("lastName" -> (randomStringGenerator.randomString(10))))
 
-
   val createCustomer = feed(feeder)
           .feed(firstNameFeeder)
       .feed(lastNameFeeder)
