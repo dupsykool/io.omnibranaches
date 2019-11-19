@@ -13,6 +13,6 @@ object CreateCustomerScenario {
       val createCustomer = scenario("createCustScenario")
           .exec(GetTokenRequest.get_token)
         .exec(OmniRequest.wallet_req)
-        .pause("5")
+        //.pause("5")
 
 }
