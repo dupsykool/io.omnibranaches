@@ -20,12 +20,15 @@ object OmniRequest {
 
   val userIdFeeder = Iterator.continually(Map("userId" -> "steepe@live.com"))
 
-  val amountFeeder = Iterator.continually(Map("amount" -> 150))
+  val amountFeeder = Iterator.continually(Map("amount" -> 50))
+
+  val refFeeder = Iterator.continually(Map("ref" -> 1234567899))
 
 
 
   val wallet_req = feed(userIdFeeder)
         .feed(amountFeeder)
+      .feed(refFeeder)
       .exec(http("fund_wallet")
     .post(omni_url + "/v1/wallet/fund")
         .header("Authorization","Bearer "+"${access_token}")
