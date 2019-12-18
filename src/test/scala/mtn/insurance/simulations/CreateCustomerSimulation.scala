@@ -12,7 +12,7 @@ import mtn.insurance.config.Config
 class CreateCustomerSimulation extends Simulation{
 
   private val createCustomer = CreateCustomerScenario
-    .createCustomer
+    .processRequest
     .inject(atOnceUsers(users))
 //    .inject(rampUsers(users) over(Config.duration))
 

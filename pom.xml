@@ -4,16 +4,19 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.omnib</groupId>
   <artifactId>io.omnibranaches</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <!--<version>1.0-SNAPSHOT</version>-->
+  <version>3.3.1</version>
 
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <encoding>UTF-8</encoding>
-    <gatling.version>2.3.0</gatling.version>
-    <gatling-plugin.version>2.2.4</gatling-plugin.version>
-    <typesafe-config.version>1.3.2</typesafe-config.version>
+    <gatling.version>${project.version}</gatling.version>
+    <gatling-plugin.version>3.0.5</gatling-plugin.version>
+    <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+    <scala-maven-plugin.version>4.3.0</scala-maven-plugin.version>
+    <!--<typesafe-config.version>1.3.2</typesafe-config.version>-->
     <simulation>CreateCustomerSimulation</simulation>
   </properties>
 
@@ -24,36 +27,59 @@
       <version>${gatling.version}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.typesafe</groupId>
-      <artifactId>config</artifactId>
-      <version>${typesafe-config.version}</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>com.typesafe</groupId>-->
+      <!--<artifactId>config</artifactId>-->
+      <!--<version>${typesafe-config.version}</version>-->
+    <!--</dependency>-->
   </dependencies>
 
   <build>
+    <testSourceDirectory>src/test/scala</testSourceDirectory>
     <plugins>
       <plugin>
         <groupId>io.gatling</groupId>
         <artifactId>gatling-maven-plugin</artifactId>
-        <version>${gatling-plugin.version}</version>
+        <version>3.0.5</version>
         <configuration>
-          <configFolder>${project.basedir}/src/test/resources</configFolder>
-          <dataFolder>${project.basedir}/src/test/resources/data</dataFolder>
-          <resultsFolder>${project.basedir}/target/gatling/results</resultsFolder>
-          <bodiesFolder>${project.basedir}/src/test/resources/bodies</bodiesFolder>
-          <simulationsFolder>${project.basedir}/src/test/scala</simulationsFolder>
           <simulationClass>mtn.insurance.simulations.${simulation}</simulationClass>
-          <jvmArgs>
-            <jvmArg>-Denv=${env}</jvmArg>
-            <jvmArg>-Dusers=${users}</jvmArg>
-            <jvmArg>-Drampup=${rampup}</jvmArg>
-            <jvmArg>-Dduration=${duration}</jvmArg>
-            <jvmArg>-Dthroughput=${throughput}</jvmArg>
-          </jvmArgs>
-          <propagateSystemProperties>true</propagateSystemProperties>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>${scala-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+            <configuration>
+              <jvmArgs>
+                <jvmArg>-Xss100M</jvmArg>
+                <jvmArg>-Denv=${env}</jvmArg>
+                <jvmArg>-Dusers=${users}</jvmArg>
+                <jvmArg>-Drampup=${rampup}</jvmArg>
+                <jvmArg>-Dduration=${duration}</jvmArg>
+                <jvmArg>-Dthroughput=${throughput}</jvmArg>
+              </jvmArgs>
+              <args>
+                <arg>-target:jvm-1.8</arg>
+                <arg>-deprecation</arg>
+                <arg>-feature</arg>
+                <arg>-unchecked</arg>
+                <arg>-language:implicitConversions</arg>
+                <arg>-language:postfixOps</arg>
+              </args>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!--<plugin>-->
+        <!--<groupId>io.gatling</groupId>-->
+        <!--<artifactId>gatling-maven-plugin</artifactId>-->
+        <!--<version>${gatling-plugin.version}</version>-->
+      <!--</plugin>-->
     </plugins>
   </build>
 

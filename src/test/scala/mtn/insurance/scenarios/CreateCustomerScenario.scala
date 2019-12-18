@@ -10,9 +10,11 @@ import scala.mtn.insurance.requests.OmniRequest
   */
 object CreateCustomerScenario {
 
-      val createCustomer = scenario("createCustScenario")
-          .exec(GetTokenRequest.get_token)
-        .exec(OmniRequest.wallet_req)
-        //.pause("5")
+      val processRequest = scenario("createCustScenario")
+        .exec(GetTokenRequest.get_token)
+        .randomSwitch(
+        30d -> exec(OmniRequest.wallet_req),
 
+        )
+        //.pause("5")
 }

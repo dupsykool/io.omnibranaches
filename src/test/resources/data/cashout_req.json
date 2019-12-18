@@ -1,0 +1,21 @@
+{
+"Reference":null,
+   "Amount":"${amount}",
+   "Currency":"NGN",
+   "Type":"Invoice",
+   "MaskedPAN":"506119*********9989",
+   "CardScheme":"Verve CPA",
+   "CustomerName":"0000071",
+   "StatusCode":"00",
+   "RetrievalReferenceNumber":"000210001231",
+   "StatusDescription":"Approved or completed successfully",
+   "PaymentDate":"2019-12-16",
+   "AdditionalInformation":[],
+   "TransactionReference":"21000454-${trxn_id}-20191217",
+   "Nuban":null,
+   "Stan":"001687",
+   "CardExpiry":"10/22",
+   "CardHash":null,
+   "MerchantId":"210000000000405"
+}
+}

@@ -22,12 +22,12 @@ object CreateCustomerReques {
 
   val lastNameFeeder = Iterator.continually(Map("lastName" -> (randomStringGenerator.randomString(10))))
 
-  val createCustomer = feed(feeder)
-          .feed(firstNameFeeder)
-      .feed(lastNameFeeder)
-    .exec(http("create-customer")
-    .post(app_url + "/employees")
-      .check(status is 200)
-    .body(ElFileBody("data/onboarding.json")).asJSON)
+//  val createCustomer = feed(feeder)
+//          .feed(firstNameFeeder)
+//      .feed(lastNameFeeder)
+//    .exec(http("create-customer")
+//    .post(app_url + "/employees")
+//      .check(status is 200)
+//    .body(ElFileBody("data/onboarding.json")).asJSON)
 }
 
