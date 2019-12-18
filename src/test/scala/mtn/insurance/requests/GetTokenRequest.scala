@@ -9,6 +9,7 @@ import mtn.insurance.config.Config.omni_url
   */
 object GetTokenRequest {
 
+  var email_token: String = "Global Variable"
 //  val session: Session = ???
 
 //    val get_token = http("getToken")
@@ -27,6 +28,12 @@ object GetTokenRequest {
     ).random
 
     val get_token = feed(feeder)
+      .exec { session =>
+        email_token = session("foo").as[String] + "_access_token"
+        println("Session Value is tun: " + email_token)
+//        println("Session Value is " + session("accessToken").as[String])
+        session
+      }
       .exec(
           http("getToken")
 //            .post(omni_url + "/login?username=${foo}&password=${bar}")
@@ -35,9 +42,15 @@ object GetTokenRequest {
             .queryParam("password","${bar}")
             .check(status is 200)
             .check(
-                checkIf("${foo}" == jsonPath("$.user.email")) {
-                  jsonPath("$.accessToken").saveAs("${foo}_accessToken")
-                }
+//                checkIf("${foo}" == jsonPath("$.user.email")) {
+                  jsonPath("$.accessToken").saveAs("access_token")
+
+//                }
             )
       )
+      .exec(session => {
+        var email_token = session("foo").as[String] + "_access_token"
+        var token = session("access_token").as[String]
+        session.set(email_token, token)
+      })
 }

@@ -1,6 +1,7 @@
 package scala.mtn.insurance.requests
 
 import io.gatling.core.Predef._
+import io.gatling.core.session.SessionAttribute
 import io.gatling.http.Predef._
 import mtn.insurance.config.Config.omni_url
 
@@ -16,6 +17,8 @@ object OmniRequest {
     def randomString(length: Int) = scala.util.Random.alphanumeric.filter(_.isLetter).take(length).mkString
   }
 
+  var email_token: String = ""
+
   val feeder = Iterator.continually(Map("emailId" -> (Random.alphanumeric.take(20).mkString + "@foo.com")))
 
   val trxnrefFeeder = Iterator.continually(Map("trxn_id" -> (Random.nextInt(1000))))
@@ -26,49 +29,32 @@ object OmniRequest {
 
   val refFeeder = Iterator.continually(Map("ref" -> 1234567899))
 
-  val emailFeeder = Array(
-    Map("foo" -> "anuonasile@gmail.com"),
-    Map("foo" -> "talk2smooth@yahoo.com"),
-    Map("foo" -> "onasilejoel@gmail.com")
-  )
-
-  val access_token_val = "${foo}_accessToken"
 
   val wallet_req = feed(userIdFeeder)
-        .feed(amountFeeder)
-      .feed(refFeeder)
-      .exec(http("fund_wallet")
-    .post(omni_url + "/v1/wallet/fund")
-//          .header(if("${foo}" == "") "" else "")
-
-         .header("Authorization","Bearer ${foo}_accessToken")
+    .feed(amountFeeder)
+    .feed(refFeeder)
+    .exec(http("fund_wallet")
+        .post(omni_url + "/v1/wallet/fund")
+        .header("Authorization",session => session("anuonasile@gmail.com_access_token").as[String])
     .body(ElFileBody{"data/wallet.json"}).asJson)
 
   val bankTransfer = feed(amountFeeder)
     .feed(trxnrefFeeder)
-      .feed(emailFeeder)
     .exec(http("bank_transfer")
       .post(omni_url + "/billpayment/bank-transfer-pay")
         .check(status.is(200))
-      .header("Authorization", "Bearer ${foo}_accessToken")
+      .check(bodyBytes.exists)
+    .header("Authorization",  session => session(email_token).as[String])
       .body(ElFileBody{"data/bank_trxn.json"}).asJson)
+
 
   val cashOut = feed(amountFeeder)
     .feed(trxnrefFeeder)
-    .feed(emailFeeder)
     .exec(http("bank_transfer")
       .post(omni_url + "/services/cashout")
       .check(status.is(200))
-      .header("Authorization", "${foo}_accessToken")
+      .header("Authorization", session => session(email_token).as[String])
       .body(ElFileBody{"data/cashout_req.json"}).asJson)
 
-
-//  val createCustomer = feed(feeder)
-//          .feed(firstNameFeeder)
-//      .feed(lastNameFeeder)
-//    .exec(http("create-customer")
-//    .post(app_url + "/employees")
-//      .check(status is 200)
-//    .body(ElFileBody("data/onboarding.json")).asJSON)
 }
 
