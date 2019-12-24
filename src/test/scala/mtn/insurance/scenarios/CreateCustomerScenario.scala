@@ -12,18 +12,24 @@ import scala.mtn.insurance.requests.OmniRequest
   */
 object CreateCustomerScenario {
 
+  var email_token: String = "Global Variable";
+
       val processRequest = scenario("createCustScenario")
         .exec(GetTokenRequest.get_token)
         .exec { session =>
-          val email_token = session("foo").as[String] + "_access_token"
+          println("CreateCustomerScenario::here")
+          email_token = session("foo").as[String] + "_access_token"
           println("Session Value for "+ email_token+" is:" + session(email_token).as[String])
           session
         }
-//        .exec(OmniRequest.bankTransfer)
+        .doIf(session => session("foo").as[String].equals("anuonasile@gmail.com")){
+          println("CreateCustomerScenario::here1")
+          exec(OmniRequest.performWalletTransfer)
+        }
         .randomSwitch(
-        60.0 -> exec(OmniRequest.wallet_req),
-          40.0 -> exec(OmniRequest.bankTransfer)
-//          30.0 -> exec(OmniRequest.cashOut)
+//          60.0 -> exec(OmniRequest.performWalletTransfer),
+          40.0 -> exec(OmniRequest.bankTransfer),
+          30.0 -> exec(OmniRequest.cashOut)
         )
         //.pause("5")
 }

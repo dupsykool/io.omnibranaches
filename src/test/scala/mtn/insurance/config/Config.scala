@@ -12,7 +12,7 @@ object Config {
 
     val omni_url_trxn = ""
 
-    val users = Integer.getInteger("users",3).toInt
+    val users = Integer.getInteger("users",1).toInt
 //    val ramp = Integer.getInteger("rampup", 1).toInt
     val duration = Integer.getInteger("duration", 10).toInt
 //    val t_throughput = Integer.getInteger("throughput", 100).toInt

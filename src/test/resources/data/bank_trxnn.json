@@ -1,0 +1,11 @@
+{
+  "bankId":"15",
+  "accountNo":"0690000041",
+  "amount":"${amount_s}",
+  "packageId":244,
+  "lat":"6.428787",
+  "lng":"3.453503",
+  "state":"Lagos",
+  "lga":"Eti Osa",
+  "merchantTxRef":"9d5640d9-6606-494c-8bc2-${trxn_id}"
+}

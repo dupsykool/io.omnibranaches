@@ -21,7 +21,7 @@ object OmniRequest {
 
   val feeder = Iterator.continually(Map("emailId" -> (Random.alphanumeric.take(20).mkString + "@foo.com")))
 
-  val trxnrefFeeder = Iterator.continually(Map("trxn_id" -> (Random.nextInt(1000))))
+  val trxnRefFeeder = Iterator.continually(Map("trxn_id" -> (Random.nextInt(1000))))
 
   val userIdFeeder = Iterator.continually(Map("userId" -> "steepe@live.com"))
 
@@ -30,26 +30,41 @@ object OmniRequest {
   val refFeeder = Iterator.continually(Map("ref" -> 1234567899))
 
 
-  val wallet_req = feed(userIdFeeder)
+  val performWalletTransfer = feed(userIdFeeder)
     .feed(amountFeeder)
     .feed(refFeeder)
+    .exec(session => {
+      var email_token = session("foo").as[String] + "_access_token"
+      println("Processing wallet transfer by: " + email_token)
+      session
+    })
     .exec(http("fund_wallet")
         .post(omni_url + "/v1/wallet/fund")
         .header("Authorization",session => session("anuonasile@gmail.com_access_token").as[String])
     .body(ElFileBody{"data/wallet.json"}).asJson)
 
   val bankTransfer = feed(amountFeeder)
-    .feed(trxnrefFeeder)
+    .feed(trxnRefFeeder)
+    .exec(session => {
+      var email_token = session("foo").as[String] + "_access_token"
+      println("Processing bank transfer by: " + email_token)
+      session
+    })
     .exec(http("bank_transfer")
       .post(omni_url + "/billpayment/bank-transfer-pay")
         .check(status.is(200))
-      .check(bodyBytes.exists)
+//      .check(bodyBytes.exists)
     .header("Authorization",  session => session(email_token).as[String])
       .body(ElFileBody{"data/bank_trxn.json"}).asJson)
 
 
   val cashOut = feed(amountFeeder)
-    .feed(trxnrefFeeder)
+    .feed(trxnRefFeeder)
+    .exec(session => {
+      var email_token = session("foo").as[String] + "_access_token"
+      println("Processing cashout by: " + email_token)
+      session
+    })
     .exec(http("bank_transfer")
       .post(omni_url + "/services/cashout")
       .check(status.is(200))
