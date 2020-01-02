@@ -14,7 +14,7 @@ object AgentScenarios {
   val SuperAgentTrxn: ScenarioBuilder = scenario("Agent Transaction Simulation")
     .exec(GetTokenRequest.super_agent_get_token)
     .exec(GetTokenRequest.get_token)
-    .repeat(5) {
+    .repeat(100) {
       during(duration) {
         randomSwitch(
                 10.0 -> exec(AgentServices.performWalletTransfer),
