@@ -28,9 +28,8 @@ object GetTokenRequest {
         Map("foo" -> "onasilejoel@gmail.com", "bar" -> "pass")
     ).random
 
-    val get_token_1 = feed(feeder)
-      .exec { session =>
-        println("login as : ${foo}")
+    val get_token_1 = exec { session =>
+        println("login as talk2smooth@yahoo.com")
         session
       }
       .exec(
@@ -47,12 +46,8 @@ object GetTokenRequest {
             )
       )
 
-  val get_token = feed(feeder)
-    .exec { session =>
-      println("login as : ${foo}")
-      session
-    }
-    .exec(
+  val get_token =
+    exec(
       http("getToken")
         .post(omni_url + "/login")
         .queryParam("username","onasilejoel@gmail.com")
@@ -64,7 +59,10 @@ object GetTokenRequest {
 
           //                }
         )
-    )
+    ) .exec { session =>
+      println("login as onasilejoel@gmail.com")
+      session
+    }
 
   val super_agent_get_token: ChainBuilder = feed(feeder)
     .exec { session =>
