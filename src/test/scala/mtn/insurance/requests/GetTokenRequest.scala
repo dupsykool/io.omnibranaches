@@ -64,8 +64,8 @@ object GetTokenRequest {
       session
     }
 
-  val super_agent_get_token: ChainBuilder = feed(feeder)
-    .exec { session =>
+  val super_agent_get_token: ChainBuilder =
+    exec { session =>
       println("login as super agent")
       session
     }
