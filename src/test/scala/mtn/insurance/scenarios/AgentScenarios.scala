@@ -10,11 +10,12 @@ import scala.concurrent.duration.Duration
 object AgentScenarios {
 
   val duration = Duration(100,"millis")
+  val p_duration = Duration(500,"millis")
 
   val SuperAgentTrxn: ScenarioBuilder = scenario("SuperAgentTrxn Transaction Simulation")
     .doIf(session => !session.contains("super_agent_get_token")){
-      exec(GetTokenRequest.super_agent_get_token)
-        .exec(GetTokenRequest.get_token)
+      exec(GetTokenRequest.super_agent_get_token).pause(p_duration)
+        .exec(GetTokenRequest.get_token).pause(p_duration)
         .exec(GetTokenRequest.get_token_1)
     }
   .exec(AgentServices.performWalletTransfer)
