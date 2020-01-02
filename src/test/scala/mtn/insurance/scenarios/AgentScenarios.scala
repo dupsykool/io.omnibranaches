@@ -9,12 +9,12 @@ import scala.concurrent.duration.Duration
 
 object AgentScenarios {
 
-  val duration = Duration(600,"millis")
+  val duration = Duration(100,"millis")
 
   val SuperAgentTrxn: ScenarioBuilder = scenario("Agent Transaction Simulation")
     .exec(GetTokenRequest.super_agent_get_token)
     .exec(GetTokenRequest.get_token)
-    .repeat(100) {
+    .repeat(20) {
       during(duration) {
         randomSwitch(
                 10.0 -> exec(AgentServices.performWalletTransfer),
