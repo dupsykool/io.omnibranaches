@@ -33,11 +33,11 @@ object OmniRequest {
   val performWalletTransfer = feed(userIdFeeder)
     .feed(amountFeeder)
     .feed(refFeeder)
-    .exec(session => {
-      var email_token = session("foo").as[String] + "_access_token"
-      println("Processing wallet transfer by: " + email_token)
-      session
-    })
+//    .exec(session => {
+//      var email_token = session("foo").as[String] + "_access_token"
+//      println("Processing wallet transfer by: " + email_token)
+//      session
+//    })
     .exec(http("fund_wallet")
         .post(omni_url + "/v1/wallet/fund")
         .header("Authorization",session => session("anuonasile@gmail.com_access_token").as[String])
@@ -45,11 +45,11 @@ object OmniRequest {
 
   val bankTransfer = feed(amountFeeder)
     .feed(trxnRefFeeder)
-    .exec(session => {
-      var email_token = session("foo").as[String] + "_access_token"
-      println("Processing bank transfer by: " + email_token)
-      session
-    })
+//    .exec(session => {
+//      var email_token = session("foo").as[String] + "_access_token"
+//      println("Processing bank transfer by: " + email_token)
+//      session
+//    })
     .exec(http("bank_transfer")
       .post(omni_url + "/billpayment/bank-transfer-pay")
         .check(status.is(200))
@@ -60,11 +60,11 @@ object OmniRequest {
 
   val cashOut = feed(amountFeeder)
     .feed(trxnRefFeeder)
-    .exec(session => {
-      var email_token = session("foo").as[String] + "_access_token"
-      println("Processing cashout by: " + email_token)
-      session
-    })
+//    .exec(session => {
+//      var email_token = session("foo").as[String] + "_access_token"
+//      println("Processing cashout by: " + email_token)
+//      session
+//    })
     .exec(http("bank_transfer")
       .post(omni_url + "/services/cashout")
       .check(status.is(200))

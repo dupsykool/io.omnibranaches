@@ -38,10 +38,10 @@ object AgentServices {
   val performWalletTransfer = feed(AnuDownlinesFeeder)
     .feed(amountFeeder)
     .feed(trxnRefFeeder)
-    .exec(session => {
-      println("Processing wallet transfer by: ${foo}")
-      session
-    })
+//    .exec(session => {
+//      println("Processing wallet transfer by: ${foo}")
+//      session
+//    })
     .exec(http("fund_wallet")
       .post(omni_url + "/wallet/fund")
       .header("Authorization", "${super_agent_get_token}")
@@ -50,11 +50,11 @@ object AgentServices {
   val performCashOut = feed(amountFeeder)
     .feed(trxnRefFeeder)
     .feed(terminalIdFeeder)
-    .exec(session => {
-//      var email_token = session("foo").as[String] + "_access_token"
-      println("Processing cashout by: ${foo}")
-      session
-    })
+//    .exec(session => {
+////      var email_token = session("foo").as[String] + "_access_token"
+//      println("Processing cashout by: ${foo}")
+//      session
+//    })
     .exec(http("cash_out")
       .post(omni_url + "/services/cashout")
       .check(status.is(200))
@@ -65,11 +65,11 @@ object AgentServices {
   val performCashOut_1 = feed(amountFeeder)
     .feed(trxnRefFeeder)
     .feed(terminalIdFeeder)
-    .exec(session => {
-      //      var email_token = session("foo").as[String] + "_access_token"
-      println("Processing cashout by: ${foo}")
-      session
-    })
+//    .exec(session => {
+//      //      var email_token = session("foo").as[String] + "_access_token"
+//      println("Processing cashout by: ${foo}")
+//      session
+//    })
     .exec(http("cash_out")
       .post(omni_url + "/services/cashout")
       .check(status.is(200))

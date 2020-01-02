@@ -27,11 +27,11 @@ object BillPaymentRequest {
 
   val agentBankTransfer: ChainBuilder = feed(amountFeeder)
     .feed(trxnRefFeeder)
-    .exec(session => {
-      val foo = session("foo").as[String]
-      println("Processing bank transfer by: "+foo)
-      session
-    })
+//    .exec(session => {
+//      val foo = session("foo").as[String]
+//      println("Processing bank transfer by: "+foo)
+//      session
+//    })
     .exec(http("agent_bank_transfer")
       .post(omni_url + "/billpayment/bank-transfer-pay")
       .check(status.is(200))
@@ -40,11 +40,11 @@ object BillPaymentRequest {
 
   val agentBankTransfer_1: ChainBuilder = feed(amountFeeder)
     .feed(trxnRefFeeder)
-    .exec(session => {
-      val foo = session("foo").as[String]
-      println("Processing bank transfer by: "+foo)
-      session
-    })
+//    .exec(session => {
+//      val foo = session("foo").as[String]
+//      println("Processing bank transfer by: "+foo)
+//      session
+//    })
     .exec(http("agent_bank_transfer")
       .post(omni_url + "/billpayment/bank-transfer-pay")
       .check(status.is(200))
@@ -53,11 +53,11 @@ object BillPaymentRequest {
 
   val superAgentBankTransfer: ChainBuilder = feed(amountFeeder)
     .feed(trxnRefFeeder)
-    .exec(session => {
-      val foo = session("foo").as[String]
-      println("Processing bank transfer by: "+foo)
-      session
-    })
+//    .exec(session => {
+//      val foo = session("foo").as[String]
+//      println("Processing bank transfer by: "+foo)
+//      session
+//    })
     .exec(http("super_bank_transfer")
       .post(omni_url + "/billpayment/bank-transfer-pay")
       .check(status.is(200))
