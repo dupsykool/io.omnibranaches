@@ -38,6 +38,19 @@ object BillPaymentRequest {
       .header("Authorization",  "${access_token}")
       .body(ElFileBody{"data/bank_trxn.json"}).asJson)
 
+  val agentBankTransfer_1: ChainBuilder = feed(amountFeeder)
+    .feed(trxnRefFeeder)
+    .exec(session => {
+      val foo = session("foo").as[String]
+      println("Processing bank transfer by: "+foo)
+      session
+    })
+    .exec(http("agent_bank_transfer")
+      .post(omni_url + "/billpayment/bank-transfer-pay")
+      .check(status.is(200))
+      .header("Authorization",  "${access_token_1}")
+      .body(ElFileBody{"data/bank_trxn.json"}).asJson)
+
   val superAgentBankTransfer: ChainBuilder = feed(amountFeeder)
     .feed(trxnRefFeeder)
     .exec(session => {

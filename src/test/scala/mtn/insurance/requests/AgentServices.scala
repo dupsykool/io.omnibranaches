@@ -62,4 +62,20 @@ object AgentServices {
         .header("terminalid","${terminalid}")
       .body(ElFileBody{"data/cashout_req.json"}).asJson)
 
+  val performCashOut_1 = feed(amountFeeder)
+    .feed(trxnRefFeeder)
+    .feed(terminalIdFeeder)
+    .exec(session => {
+      //      var email_token = session("foo").as[String] + "_access_token"
+      println("Processing cashout by: ${foo}")
+      session
+    })
+    .exec(http("cash_out")
+      .post(omni_url + "/services/cashout")
+      .check(status.is(200))
+      .header("Authorization", "${access_token_1}")
+      .header("terminalid","${terminalid}")
+      .body(ElFileBody{"data/cashout_req.json"}).asJson)
+
+
 }

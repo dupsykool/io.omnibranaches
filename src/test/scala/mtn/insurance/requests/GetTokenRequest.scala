@@ -28,7 +28,7 @@ object GetTokenRequest {
         Map("foo" -> "onasilejoel@gmail.com", "bar" -> "pass")
     ).random
 
-    val get_token = feed(feeder)
+    val get_token_1 = feed(feeder)
       .exec { session =>
         println("login as : ${foo}")
         session
@@ -36,16 +36,35 @@ object GetTokenRequest {
       .exec(
           http("getToken")
             .post(omni_url + "/login")
-            .queryParam("username","${foo}")
-            .queryParam("password","${bar}")
+            .queryParam("username","talk2smooth@yahoo.com")
+            .queryParam("password","pass")
             .check(status is 200)
             .check(
 //                checkIf("${foo}" == jsonPath("$.user.email")) {
-                  jsonPath("$.accessToken").saveAs("access_token")
+                  jsonPath("$.accessToken").saveAs("access_token_1")
 
 //                }
             )
       )
+
+  val get_token = feed(feeder)
+    .exec { session =>
+      println("login as : ${foo}")
+      session
+    }
+    .exec(
+      http("getToken")
+        .post(omni_url + "/login")
+        .queryParam("username","onasilejoel@gmail.com")
+        .queryParam("password","pass")
+        .check(status is 200)
+        .check(
+          //                checkIf("${foo}" == jsonPath("$.user.email")) {
+          jsonPath("$.accessToken").saveAs("access_token")
+
+          //                }
+        )
+    )
 
   val super_agent_get_token: ChainBuilder = feed(feeder)
     .exec { session =>
