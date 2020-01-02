@@ -26,7 +26,7 @@ object GetTokenRequest {
 //        Map("foo" -> "anuonasile@gmail.com",  "bar" -> "pass"),
         Map("foo" -> "talk2smooth@yahoo.com", "bar" -> "pass"),
         Map("foo" -> "onasilejoel@gmail.com", "bar" -> "pass")
-    )
+    ).random
 
     val get_token = feed(feeder)
       .exec { session =>
