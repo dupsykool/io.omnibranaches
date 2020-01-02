@@ -13,11 +13,11 @@ object AgentScenarios {
   val p_duration = Duration(500,"millis")
 
   val SuperAgentTrxn: ScenarioBuilder = scenario("SuperAgentTrxn Transaction Simulation")
-    .doIf(session => !session.contains("super_agent_get_token")){
-      exec(GetTokenRequest.super_agent_get_token).pause(p_duration)
-        .exec(GetTokenRequest.get_token).pause(p_duration)
-        .exec(GetTokenRequest.get_token_1)
-    }
+//    .doIf(session => !session.contains("super_agent_get_token")){
+//      exec(GetTokenRequest.super_agent_get_token).pause(p_duration)
+//        .exec(GetTokenRequest.get_token).pause(p_duration)
+//        .exec(GetTokenRequest.get_token_1)
+//    }
   .exec(AgentServices.performWalletTransfer)
             .exec(AgentServices.performCashOut_1)
     .exec(BillPaymentRequest.agentBankTransfer)
@@ -95,7 +95,8 @@ object AgentScenarios {
 //      )
 //    }
 
-  val Agent_login: ScenarioBuilder = scenario("performing bank transfer")
-    .exec(GetTokenRequest.super_agent_get_token)
+  val Agent_login: ScenarioBuilder = scenario("login")
+  .exec(GetTokenRequest.super_agent_get_token)
     .exec(GetTokenRequest.get_token)
+    .exec(GetTokenRequest.get_token_1)
 }
