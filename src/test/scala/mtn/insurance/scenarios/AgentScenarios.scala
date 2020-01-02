@@ -12,7 +12,7 @@ object AgentScenarios {
   val duration = Duration(100,"millis")
 
   val SuperAgentTrxn: ScenarioBuilder = scenario("SuperAgentTrxn Transaction Simulation")
-    .doIf(session => session("super_agent_get_token").as[String].isEmpty()){
+    .doIf(session => !session.contains("super_agent_get_token")){
       exec(GetTokenRequest.super_agent_get_token)
         .exec(GetTokenRequest.get_token)
         .exec(GetTokenRequest.get_token_1)
