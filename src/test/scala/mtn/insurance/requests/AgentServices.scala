@@ -9,6 +9,8 @@ import scala.util.Random
 
 object AgentServices {
 
+  var super_agent_get_token_2 = ""
+
   val randomGenerator = new Random
 
   val start = 50
@@ -39,7 +41,8 @@ object AgentServices {
     .feed(amountFeeder)
     .feed(trxnRefFeeder)
 //    .exec(session => {
-//      println("Processing wallet transfer by: ${foo}")
+//      super_agent_get_token_2 = session("super_agent_get_token_1").as[String]
+//      println("Processing wallet transfer by: "+ session("super_agent_get_token_2").as[String])
 //      session
 //    })
     .exec(http("fund_wallet")
@@ -50,6 +53,10 @@ object AgentServices {
   val performCashOut = feed(amountFeeder)
     .feed(trxnRefFeeder)
     .feed(terminalIdFeeder)
+    .exec(session => {
+      println("Processing wallet transfer by: "+ session("access_token").as[String])
+      session
+    })
 //    .exec(session => {
 ////      var email_token = session("foo").as[String] + "_access_token"
 //      println("Processing cashout by: ${foo}")

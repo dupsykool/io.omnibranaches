@@ -18,13 +18,15 @@ object AgentScenarios {
 //        .exec(GetTokenRequest.get_token).pause(p_duration)
 //        .exec(GetTokenRequest.get_token_1)
 //    }
+    .exec(GetTokenRequest.super_agent_get_token)
   .exec(AgentServices.performWalletTransfer)
-            .exec(AgentServices.performCashOut_1)
-    .exec(BillPaymentRequest.agentBankTransfer)
-            .exec(BillPaymentRequest.superAgentBankTransfer)
-    .exec(BillPaymentRequest.agentBankTransfer_1)
-            .exec(AgentServices.performCashOut)
-            .exec(AgentServices.performWalletTransfer)
+    .exec(BillPaymentRequest.superAgentBankTransfer)
+//            .exec(AgentServices.performCashOut_1)
+//    .exec(BillPaymentRequest.agentBankTransfer)
+
+//    .exec(BillPaymentRequest.agentBankTransfer_1)
+//            .exec(AgentServices.performCashOut)
+//            .exec(AgentServices.performWalletTransfer)
 //    .exec(GetTokenRequest.get_token)
 //    .exec(GetTokenRequest.get_token_1)
 //    .repeat(20) {
@@ -62,7 +64,7 @@ object AgentScenarios {
 //      }
 //    }
 
-  val AgentTrxn_1: ScenarioBuilder = scenario("AgentTrxn_2 Transaction Simulation")
+  val AgentTrxn_1: ScenarioBuilder = scenario("AgentTrxn_1 Transaction Simulation")
     .exec(GetTokenRequest.get_token_1)
     .exec(BillPaymentRequest.agentBankTransfer_1)
     .exec(AgentServices.performCashOut_1)

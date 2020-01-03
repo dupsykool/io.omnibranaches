@@ -79,4 +79,5 @@ object GetTokenRequest {
           jsonPath("$.accessToken").saveAs("super_agent_get_token")
         )
     )
+//      .exec ( session => session.set("super_agent_get_token_1", session("super_agent_get_token").as[String]))
 }
