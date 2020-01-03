@@ -19,8 +19,8 @@ class AgentTransactionSimulation extends Simulation {
 //    AgentScenarios.Agent_login.inject(atOnceUsers(1)),
 //    AgentScenarios.SuperAgentTrxn.inject(atOnceUsers(1))
     AgentScenarios.SuperAgentTrxn.inject(atOnceUsers(1)),
-      AgentScenarios.AgentTrxn.inject(atOnceUsers(1)),
-  AgentScenarios.AgentTrxn_1.inject(atOnceUsers(1))
+      AgentScenarios.AgentTrxn.inject(constantUsersPerSec(5).during(2 seconds)),
+  AgentScenarios.AgentTrxn_1.inject(constantUsersPerSec(3).during(2 seconds))
 //    AgentScenarios.AgentTrxn.inject(constantUsersPerSec(10).during(2 seconds)),
 //    AgentScenarios.AgentTrxn_1.inject(constantUsersPerSec(10).during(2 seconds))
 
