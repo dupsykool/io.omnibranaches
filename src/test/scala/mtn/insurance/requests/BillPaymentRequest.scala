@@ -21,12 +21,17 @@ object BillPaymentRequest {
 
   val trxnRefFeeder: Iterator[Map[String, Int]] = Iterator.continually(Map("trxn_id" -> (Random.nextInt(1000))))
 
-  val amountFeeder: Iterator[Map[String, Int]] = Iterator.continually(Map("amount" -> Random.nextInt(100)))
+  val trxnRefFeeder2 = Iterator.continually(Map("trxn_id2" -> (Random.nextInt(10000))))
+
+//  val amountFeeder: Iterator[Map[String, Int]] = Iterator.continually(Map("amount" -> Random.nextInt(100)))
+
+  val amountFeeder: Iterator[Map[String, Int]] = Iterator.continually(Map("amount" -> 100))
 
 //  val amountFeeder_superAgent: Iterator[Map[String, Long]] = Iterator.continually(Map("amount_s" -> r))
 
   val agentBankTransfer: ChainBuilder = feed(amountFeeder)
     .feed(trxnRefFeeder)
+    .feed(trxnRefFeeder2)
 //    .exec(session => {
 //      val foo = session("foo").as[String]
 //      println("Processing bank transfer by: "+foo)
@@ -40,6 +45,7 @@ object BillPaymentRequest {
 
   val agentBankTransfer_1: ChainBuilder = feed(amountFeeder)
     .feed(trxnRefFeeder)
+    .feed(trxnRefFeeder2)
 //    .exec(session => {
 //      val foo = session("foo").as[String]
 //      println("Processing bank transfer by: "+foo)
@@ -53,6 +59,7 @@ object BillPaymentRequest {
 
   val superAgentBankTransfer: ChainBuilder = feed(amountFeeder)
     .feed(trxnRefFeeder)
+    .feed(trxnRefFeeder2)
 //    .exec(session => {
 //      val foo = session("foo").as[String]
 //      println("Processing bank transfer by: "+foo)

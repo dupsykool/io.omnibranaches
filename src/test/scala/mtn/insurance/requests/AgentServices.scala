@@ -19,11 +19,15 @@ object AgentServices {
 
   val userIdFeeder = Iterator.continually(Map("userId" -> "steepe@live.com"))
 
-  val amountFeeder: Iterator[Map[String, Int]] = Iterator.continually(Map("amount" -> (start + randomGenerator.nextInt((end - start) + 1 ))))
+//  val amountFeeder: Iterator[Map[String, Int]] = Iterator.continually(Map("amount" -> (start + randomGenerator.nextInt((end - start) + 1 ))))
+
+  val amountFeeder: Iterator[Map[String, Int]] = Iterator.continually(Map("amount" -> 200))
 
 //  val refFeeder = Iterator.continually(Map("ref" -> 1234567899))
 
   val trxnRefFeeder = Iterator.continually(Map("trxn_id" -> (Random.nextInt(1000))))
+
+  val trxnRefFeeder2 = Iterator.continually(Map("trxn_id2" -> (Random.nextInt(10000))))
 
   val AnuDownlinesFeeder = Array(
     Map("userId" -> "talk2smooth@yahoo.com"),
@@ -40,6 +44,7 @@ object AgentServices {
   val performWalletTransfer = feed(AnuDownlinesFeeder)
     .feed(amountFeeder)
     .feed(trxnRefFeeder)
+    .feed(trxnRefFeeder2)
 //    .exec(session => {
 //      super_agent_get_token_2 = session("super_agent_get_token_1").as[String]
 //      println("Processing wallet transfer by: "+ session("super_agent_get_token_2").as[String])
@@ -52,6 +57,7 @@ object AgentServices {
 
   val performCashOut = feed(amountFeeder)
     .feed(trxnRefFeeder)
+    .feed(trxnRefFeeder2)
     .feed(terminalIdFeeder)
     .exec(session => {
       println("Processing wallet transfer by: "+ session("access_token").as[String])
@@ -72,6 +78,7 @@ object AgentServices {
   val performCashOut_1 = feed(amountFeeder)
     .feed(trxnRefFeeder)
     .feed(terminalIdFeeder)
+    .feed(trxnRefFeeder2)
 //    .exec(session => {
 //      //      var email_token = session("foo").as[String] + "_access_token"
 //      println("Processing cashout by: ${foo}")

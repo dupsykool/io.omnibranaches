@@ -1,5 +1,5 @@
 {
   "amount": "${amount}",
   "userId": "${userId}",
-  "merchantTxRef": "${trxn_id}"
+  "merchantTxRef": "98129-$trxn_id2}-9923-${trxn_id}"
 }

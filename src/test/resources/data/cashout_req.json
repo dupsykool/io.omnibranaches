@@ -11,7 +11,7 @@
    "StatusDescription":"Approved or completed successfully",
    "PaymentDate":"2019-12-16",
    "AdditionalInformation":[],
-   "TransactionReference":"21000454-${trxn_id}-20191217",
+   "TransactionReference":"21000454-${trxn_id}-20191217-${trxn_id2}",
    "Nuban":null,
    "Stan":"001687",
    "CardExpiry":"10/22",

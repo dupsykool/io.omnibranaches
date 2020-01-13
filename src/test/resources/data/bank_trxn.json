@@ -7,5 +7,5 @@
   "lng":"3.453503",
   "state":"Lagos",
   "lga":"Eti Osa",
-  "merchantTxRef":"9d5640d9-6606-494c-8bc2-${trxn_id}"
+  "merchantTxRef":"9d5640d9-${trxn_id2}-494c-8bc2-${trxn_id}"
 }
