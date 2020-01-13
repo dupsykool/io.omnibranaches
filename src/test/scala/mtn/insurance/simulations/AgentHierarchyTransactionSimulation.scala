@@ -9,9 +9,9 @@ class AgentHierarchyTransactionSimulation extends Simulation {
 
 
   setUp(
-    AgentScenarios.SuperAgentTrxn.inject(constantUsersPerSec(2).during(2 seconds)),
-      AgentScenarios.AgentTrxn.inject(constantUsersPerSec(3).during(2 seconds)),
-  AgentScenarios.AgentTrxn_1.inject(constantUsersPerSec(4).during(2 seconds))
+    AgentScenarios.SuperAgentTrxn.inject(rampUsers(2).during(2 seconds)),
+      AgentScenarios.AgentTrxn.inject(rampUsers(3).during(2 seconds)),
+  AgentScenarios.AgentTrxn_1.inject(rampUsers(4).during(2 seconds))
   )
 
 
